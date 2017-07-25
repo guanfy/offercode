@@ -11,7 +11,7 @@ bool Equal_double(double num1, double num2)
 		return false;
 }
 
-/* Ö¸ÊıÎªÕıµÄÊ±ºò*/
+/* æŒ‡æ•°ä¸ºæ­£çš„æ—¶å€™*/
 double Power_with_unsigned_int(double base, unsigned int exponent)
 {
 	double res = 1.0;
@@ -27,20 +27,20 @@ double Power_with_unsigned_int_efficiently(double base, unsigned int exponent)
 		return 1;
 	if (exponent == 1)
 		return base;
-	//¼õÉÙÖØ¸´¼ÆËã£¬2^16 = (2^8)^2 = 2^4^2^2 = 2^2^2^2^2;
-	//Î»ÔËËã£¬ÎŞ·ûºÅÊı£¬ÓÒÒÆ = ³ıÒÔ 2£¬ ÓëÔËËã ´úÌæÈ¡Óà£¨%2£©À´ÅĞ¶ÏÊÇ·ñÊÇÆæÊı¡£
+	//å‡å°‘é‡å¤è®¡ç®—ï¼Œ2^16 = (2^8)^2 = 2^4^2^2 = 2^2^2^2^2;
+	//ä½è¿ç®—ï¼Œæ— ç¬¦å·æ•°ï¼Œå³ç§» = é™¤ä»¥ 2ï¼Œ ä¸è¿ç®— ä»£æ›¿å–ä½™ï¼ˆ%2ï¼‰æ¥åˆ¤æ–­æ˜¯å¦æ˜¯å¥‡æ•°ã€‚
 	double res = Power_with_unsigned_int_efficiently(base, exponent >> 1);
 	res *= res;
-	if (exponent & 0x1 == 1) //Èç¹ûÊÇÆæÊı£¬ÔÙ³ËÒÔÒ»¸öbase, %2 == 0,µÈÓÚ0±íÊ¾ÊÇÅ¼Êı£»
+	if (exponent & 0x1 == 1) //å¦‚æœæ˜¯å¥‡æ•°ï¼Œå†ä¹˜ä»¥ä¸€ä¸ªbase, %2 == 0,ç­‰äº0è¡¨ç¤ºæ˜¯å¶æ•°ï¼›
 		res *= res;
 	return res;
 }
 
-/*ÉèÖÃÈ«¾Ö±äÁ¿À´±íÊ¾ÎŞĞ§ÊäÈë*/
+/*è®¾ç½®å…¨å±€å˜é‡æ¥è¡¨ç¤ºæ— æ•ˆè¾“å…¥*/
 bool g_InvalidInput = false;
 double Power1(double base, int exponent)
 {
-	/*¿¼ÂÇ»ùÊıÎª0.0µÄÇé¿ö,¶¨Òå£º0µÄÕıÊı´ÎÃİÎª0£¬ÆäÓàÎŞĞ§£¬¶¨ÒåÎª0.0*/
+	/*è€ƒè™‘åŸºæ•°ä¸º0.0çš„æƒ…å†µ,å®šä¹‰ï¼š0çš„æ­£æ•°æ¬¡å¹‚ä¸º0ï¼Œå…¶ä½™æ— æ•ˆï¼Œå®šä¹‰ä¸º0.0*/
 	if (Equal_double(base, 0.0) && exponent <= 0)
 	{
 		g_InvalidInput = true;
@@ -61,7 +61,7 @@ double Power1(double base, int exponent)
 	}
 
 	double res = Power_with_unsigned_int(base, absExponent);
-	/*Ö¸Êı²¿Î»ÕıµÄÊ±ºò£¬½á¹ûµ¹ÖÃ*/
+	/*æŒ‡æ•°éƒ¨ä½æ­£çš„æ—¶å€™ï¼Œç»“æœå€’ç½®*/
 	if (exponent < 0)
 	{
 		res = 1.0 / res;
